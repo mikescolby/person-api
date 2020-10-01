@@ -3,10 +3,10 @@ import { RequestHandler } from "express";
 
 import { Controller } from "./controllers";
 
-export class ServerConfig {
-  public port: number;
-  public controllers: Controller[];
-  public middlewares: RequestHandler[];
+export interface ServerConfig {
+  port: number;
+  controllers: Controller[];
+  middlewares: RequestHandler[];
 }
 
 export class Server {
@@ -33,7 +33,7 @@ export class Server {
     });
   }
 
-  public listen() {
+  public start() {
     this.app.listen(this.port, () => {
       console.log(`App listening on the http://localhost:${this.port}`);
     });

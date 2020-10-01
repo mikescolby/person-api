@@ -1,6 +1,5 @@
 import * as express from "express";
 import { Request, Response, NextFunction } from "express";
-import { isConstructorDeclaration } from "typescript";
 
 import { Person } from "../../models";
 import { Controller } from "../controller.interface";
