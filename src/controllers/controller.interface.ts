@@ -3,14 +3,18 @@ import * as express from "express";
 /**
  * Controller Interface
  */
-export interface Controller {
+export abstract class Controller {
   /**
    * ExpressJS router property used in initRoutes
    */
-  router: express.Router;
-
+  public router: express.Router;
+  
   /**
    * Initialize controller routes
    */
-  initRoutes(): void;
+  abstract initRoutes(): void;
+
+  constructor() {
+    this.router = express.Router();
+  }
 }

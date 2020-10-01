@@ -18,11 +18,11 @@ export class IndexController implements Controller {
     this.router.get("/hello", this.hello);
   };
 
-  private index = (req: Request, res: Response, next: NextFunction) => {
+  public index = (req: Request, res: Response, next: NextFunction) => {
     res.json({ message: "hello world" });
   };
 
-  private hello = (req: Request, res: Response, next: NextFunction) => {
+  public hello = (req: Request, res: Response, next: NextFunction) => {
     let name = req.query.name;
     if (!name) {
       res.status(400).json({ message: "Name is required" });

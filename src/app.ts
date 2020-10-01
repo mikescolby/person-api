@@ -7,8 +7,9 @@ import { Server } from "./server";
 import {
   IndexController,
   PersonController,
-  AddressController,
 } from "./controllers";
+
+import { AddressController } from './address';
 
 import { LoggerMiddleware } from "./middlewares";
 
@@ -21,7 +22,6 @@ const server = new Server({
   ],
   middlewares: [
     express.json(),
-    express.urlencoded(),
     xmlBodyParser({normalize: false, normalizeTags: false, explicitArray: false}),
     logger("dev"),
     new LoggerMiddleware().execute,
