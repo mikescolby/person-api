@@ -1,4 +1,5 @@
-import * as bodyParser from "body-parser";
+import * as express from 'express';
+import * as xmlBodyParser from 'express-xml-bodyparser';
 import * as logger from "morgan";
 
 import { Server } from "./server";
@@ -8,6 +9,7 @@ import {
   PersonController,
   AddressController,
 } from "./controllers";
+
 import { LoggerMiddleware } from "./middlewares";
 
 const server = new Server({
@@ -18,8 +20,9 @@ const server = new Server({
     new PersonController(),
   ],
   middlewares: [
-    bodyParser.json(),
-    bodyParser.urlencoded({ extended: true }),
+    express.json(),
+    express.urlencoded(),
+    xmlBodyParser({normalize: false, normalizeTags: false, explicitArray: false}),
     logger("dev"),
     new LoggerMiddleware().execute,
   ],

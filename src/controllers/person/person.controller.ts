@@ -19,26 +19,23 @@ export class PersonController implements Controller {
     this.router.post("/person", this.addPerson);
   };
 
-  private getPeople = (req: Request, res: Response, next: NextFunction) => {
+  public getPeople = (req: Request, res: Response, next: NextFunction) => {
     res.json(this.people);
   };
 
-  private addPerson = (req: Request, res: Response, next: NextFunction) => {
-    let firstName: string = req.body.firstName;
-    if (!firstName) {
+  public addPerson = (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.body);
+    let person = req.body.person;
+
+    if (!person.firstName) {
       return res.status(400).send("Firstname is required");
     }
 
-    let lastName: string = req.body.lastName;
-    if (!lastName) {
+    if (!person.lastName) {
       return res.status(400).send("Lastname is required");
     }
 
-    this.people.push({
-      firstName: firstName,
-      lastName: lastName,
-    });
-
-    return res.json(this.people[-1]);
+    this.people.push(person);
+    return res.send(200);
   };
 }
