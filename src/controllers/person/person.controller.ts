@@ -25,7 +25,10 @@ export class PersonController implements Controller {
 
   public addPerson = (req: Request, res: Response, next: NextFunction) => {
     console.log(req.body);
-    let person = req.body.person;
+    let person = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName
+    };
 
     if (!person.firstName) {
       return res.status(400).send("Firstname is required");

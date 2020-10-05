@@ -22,7 +22,7 @@ const server = new Server({
   ],
   middlewares: [
     express.json(),
-    xmlBodyParser({normalize: false, normalizeTags: false, explicitArray: false}),
+    xmlBodyParser({normalize: false, normalizeTags: false, explicitArray: false, explicitRoot: false}),
     logger("dev"),
     new LoggerMiddleware().execute,
   ],
