@@ -5,7 +5,6 @@ import * as logger from "morgan";
 import { Server } from "./server";
 
 import {
-  IndexController,
   PersonController,
 } from "./controllers";
 
@@ -17,7 +16,6 @@ const server = new Server({
   port: 3000,
   controllers: [
     new AddressController(),
-    new IndexController(),
     new PersonController(),
   ],
   middlewares: [
