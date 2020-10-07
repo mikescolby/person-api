@@ -4,7 +4,6 @@ export class AddressService {
     addresses: Address[];
 
     constructor() {
-        console.log('addressService.constructor()');
         this.addresses = [
             {
                 street: '5104 W 34th Street N',
