@@ -10,8 +10,6 @@ import {
 
 import { AddressController } from './address';
 
-import { LoggerMiddleware } from "./middlewares";
-
 const server = new Server({
   port: 3000,
   controllers: [
@@ -20,9 +18,8 @@ const server = new Server({
   ],
   middlewares: [
     express.json(),
-    xmlBodyParser({normalize: false, normalizeTags: false, explicitArray: false, explicitRoot: false}),
-    logger("dev"),
-    new LoggerMiddleware().execute,
+    xmlBodyParser({ normalize: false, normalizeTags: false, explicitArray: false, explicitRoot: false }),
+    logger("dev")
   ],
 });
 
