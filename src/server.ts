@@ -1,6 +1,6 @@
-import express, { RequestHandler } from "express";
+import express, { RequestHandler } from 'express';
 
-import { Controller } from "./interfaces";
+import { Controller } from './interfaces';
 
 export interface ServerConfig {
   port: number;
@@ -10,6 +10,7 @@ export interface ServerConfig {
 
 export class Server {
   public app: express.Application;
+
   private port: number;
 
   constructor(config: ServerConfig) {
@@ -28,7 +29,7 @@ export class Server {
 
   private registerControllers(controllers: Controller[]) {
     controllers.forEach((controller) => {
-      this.app.use("/", controller.router);
+      this.app.use('/', controller.router);
     });
   }
 
