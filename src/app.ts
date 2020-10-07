@@ -8,13 +8,10 @@ import {
   PersonController,
 } from "./controllers";
 
-import { AddressController } from './address';
-
 const server = new Server({
   port: 3000,
   controllers: [
-    new AddressController(),
-    new PersonController(),
+    new PersonController()
   ],
   middlewares: [
     express.json(),
