@@ -1,5 +1,8 @@
 import { checkSchema } from 'express-validator';
 
+/**
+ * 
+ */
 export class UserValidator {
     userId = () => {
         return checkSchema(

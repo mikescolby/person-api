@@ -1,6 +1,6 @@
-import * as express from 'express';
-import * as xmlBodyParser from 'express-xml-bodyparser';
-import * as logger from "morgan";
+import express from 'express';
+import xmlBodyParser from 'express-xml-bodyparser';
+import logger from "morgan";
 
 import { Server } from "./server";
 

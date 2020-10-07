@@ -1,7 +1,6 @@
-import * as express from "express";
-import { RequestHandler } from "express";
+import express, { RequestHandler } from "express";
 
-import { Controller } from "./controllers";
+import { Controller } from "./interfaces";
 
 export interface ServerConfig {
   port: number;

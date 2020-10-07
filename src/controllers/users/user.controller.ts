@@ -1,19 +1,17 @@
-import * as express from 'express';
-import { Request, Response } from 'express';
+import { Request, Response, Router } from 'express';
 import { validationResult } from 'express-validator';
 
-import { Controller } from '../controller.interface';
-import { UserModel } from './user.model';
+import { Controller } from '../../interfaces';
+
 import { UserService } from './user.service';
 import { UserValidator } from './user.validator';
+import { UserParser } from './user.parser';
 
 export class UserController implements Controller {
-    public router = express.Router();
-
-    private userService: UserService = new UserService();
-    private userValidator: UserValidator = new UserValidator();
-
-    constructor() {
+    constructor(public router = Router(),
+        private userService: UserService = new UserService(),
+        private userValidator: UserValidator = new UserValidator()
+    ) {
         this.initRoutes();
     }
 
@@ -27,52 +25,45 @@ export class UserController implements Controller {
 
     private getUsers = (req: Request, res: Response) => {
         let users = this.userService.getUsers();
-        res.status(200).json(users);
+        return res.status(200).json(users);
     }
 
     private getUserById = (req: Request, res: Response) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({ errors: errors.array() });
         }
 
         let id = parseInt(req.params.id);
 
         let user = this.userService.getUserById(id);
-        res.status(200).json(user);
+        return res.status(200).json(user);
     }
 
     private saveUser = (req: Request, res: Response) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({ errors: errors.array() });
         }
 
         // create user object
-        let user = new UserModel();
-        user.firstName = req.body.firstName;
-        user.lastName = req.body.lastName;
-        user.age = req.body.age;
+        let user = UserParser.parseRequest(req);
 
         // save user, retieve user id from save
         user.id = this.userService.saveUser(user);
 
         // return new user object
-        res.status(200).json(user);
+        return res.status(200).json(user);
     }
 
     private updateUser = (req: Request, res: Response) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({ errors: errors.array() });
         }
 
         // get updated user data
-        let updatedUser = new UserModel();
-        updatedUser.id = req.body.id;
-        updatedUser.firstName = req.body.firstName;
-        updatedUser.lastName = req.body.lastName;
-        updatedUser.age = req.body.age;
+        let updatedUser = UserParser.parseRequest(req);
 
         // check if existing user exists
         let existingUser = this.userService.getUserById(updatedUser.id);
@@ -82,19 +73,19 @@ export class UserController implements Controller {
 
         this.userService.updateUser(updatedUser);
 
-        res.status(200).json(updatedUser);
+        return res.status(200).json(updatedUser);
 
     }
 
     private deleteUser = (req: Request, res: Response) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({ errors: errors.array() });
         }
 
         let id = parseInt(req.params.id);
         let user = this.userService.deleteUser(id);
 
-        res.status(200).send(user);
+        return res.status(200).send(user);
     }
 }
