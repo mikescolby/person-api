@@ -5,13 +5,11 @@ import * as logger from "morgan";
 import { Server } from "./server";
 
 import {
-  PersonController,
 } from "./controllers";
 
 const server = new Server({
   port: 3000,
   controllers: [
-    new PersonController()
   ],
   middlewares: [
     express.json(),
