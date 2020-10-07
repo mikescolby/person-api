@@ -1,7 +1,18 @@
 {
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "**/node_modules",
+    "**/.*/"
+  ],
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
+    "target": "es2019",
+    "module": "Commonjs",
+    "lib": [
+      "es2020"
+    ],
+    "outDir": "build",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
