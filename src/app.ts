@@ -1,30 +1,22 @@
-import * as express from 'express';
-import * as xmlBodyParser from 'express-xml-bodyparser';
-import * as logger from "morgan";
+import express from 'express';
+import xmlBodyParser from 'express-xml-bodyparser';
+import logger from "morgan";
 
 import { Server } from "./server";
 
 import {
-  IndexController,
-  PersonController,
-  AddressController,
+  UserController
 } from "./controllers";
-
-import { LoggerMiddleware } from "./middlewares";
 
 const server = new Server({
   port: 3000,
   controllers: [
-    new AddressController(),
-    new IndexController(),
-    new PersonController(),
+    new UserController()
   ],
   middlewares: [
     express.json(),
-    express.urlencoded(),
-    xmlBodyParser({normalize: false, normalizeTags: false, explicitArray: false}),
-    logger("dev"),
-    new LoggerMiddleware().execute,
+    xmlBodyParser({ normalize: false, normalizeTags: false, explicitArray: false, explicitRoot: false }),
+    logger("dev")
   ],
 });
 
